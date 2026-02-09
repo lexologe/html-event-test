@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Event Tail</title>
+<style>
+  html,body {
+    margin:0; height:100%;
+    background:#000; color:#0f0;
+    font-family: monospace;
+    font-size:12px;
+  }
+  #log {
+    height:100%;
+    overflow:auto;
+    padding:8px;
+    white-space:pre;
+  }
+</style>
+</head>
+<body>
+<div id="log"></div>
+
+<script>
+let last = performance.now();
+let i = 0;
+const log = document.getElementById("log");
+
+function add(type, info) {
+  const now = performance.now();
+  const dt = (now - last).toFixed(1);
+  last = now;
+  i++;
+  log.textContent += `${i}  +${dt}ms  ${type} ${info}\n`;
+  log.scrollTop = log.scrollHeight;
+}
+
+const pos = e => (e.clientX!=null ? `x=${e.clientX} y=${e.clientY}` : "");
+
+window.addEventListener("mousedown", e => add("mouse:down", pos(e)), {passive:true});
+window.addEventListener("mouseup",   e => add("mouse:up",   pos(e)), {passive:true});
+window.addEventListener("mousemove", e => add("mouse:move", pos(e)), {passive:true});
+window.addEventListener("wheel",     e => add("mouse:wheel", `dx=${e.deltaX} dy=${e.deltaY}`), {passive:true});
+
+window.addEventListener("keydown", e => add("key:down", `key=${e.key}`));
+window.addEventListener("keyup",   e => add("key:up",   `key=${e.key}`));
+
+window.addEventListener("touchstart", e => add("touch:start", `n=${e.touches.length}`), {passive:true});
+window.addEventListener("touchmove",  e => add("touch:move",  `n=${e.touches.length}`), {passive:true});
+window.addEventListener("touchend",   e => add("touch:end",   `n=${e.touches.length}`), {passive:true});
+</script>
+</body>
+</html>
