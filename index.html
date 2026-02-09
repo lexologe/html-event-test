@@ -39,10 +39,10 @@ function add(type, info) {
 
 const pos = e => (e.clientX!=null ? `x=${e.clientX} y=${e.clientY}` : "");
 
-window.addEventListener("mousedown", e => add("mouse:down", pos(e)), {passive:true});
-window.addEventListener("mouseup",   e => add("mouse:up",   pos(e)), {passive:true});
-window.addEventListener("mousemove", e => add("mouse:move", pos(e)), {passive:true});
-window.addEventListener("wheel",     e => add("mouse:wheel", `dx=${e.deltaX} dy=${e.deltaY}`), {passive:true});
+// window.addEventListener("mousedown", e => add("mouse:down", pos(e)), {passive:true});
+// window.addEventListener("mouseup",   e => add("mouse:up",   pos(e)), {passive:true});
+// window.addEventListener("mousemove", e => add("mouse:move", pos(e)), {passive:true});
+// window.addEventListener("wheel",     e => add("mouse:wheel", `dx=${e.deltaX} dy=${e.deltaY}`), {passive:true});
 
 window.addEventListener("keydown", e => add("key:down", `key=${e.key}`));
 window.addEventListener("keyup",   e => add("key:up",   `key=${e.key}`));
