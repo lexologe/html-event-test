@@ -37,19 +37,16 @@ function add(type, info) {
   log.scrollTop = log.scrollHeight;
 }
 
-const pos = e => (e.clientX!=null ? `x=${e.clientX} y=${e.clientY}` : "");
+window.addEventListener("touchstart",  e => add("touch:start",  `n=${e.touches.length}`), {passive:true});
+window.addEventListener("touchmove",   e => add("touch:move",   `n=${e.touches.length}`), {passive:true});
+window.addEventListener("touchend",    e => add("touch:end",    `n=${e.touches.length}`), {passive:true});
+window.addEventListener("touchcancel", e => add("touch:cancel", `n=${e.touches.length}`), {passive:true});
 
-// window.addEventListener("mousedown", e => add("mouse:down", pos(e)), {passive:true});
-// window.addEventListener("mouseup",   e => add("mouse:up",   pos(e)), {passive:true});
-// window.addEventListener("mousemove", e => add("mouse:move", pos(e)), {passive:true});
-// window.addEventListener("wheel",     e => add("mouse:wheel", `dx=${e.deltaX} dy=${e.deltaY}`), {passive:true});
+window.addEventListener("keydown", e => add("key:down", `key=${e.key} code=${e.code}`));
+window.addEventListener("keyup",   e => add("key:up",   `key=${e.key} code=${e.code}`));
 
-window.addEventListener("keydown", e => add("key:down", `key=${e.key}`));
-window.addEventListener("keyup",   e => add("key:up",   `key=${e.key}`));
-
-window.addEventListener("touchstart", e => add("touch:start", `n=${e.touches.length}`), {passive:true});
-window.addEventListener("touchmove",  e => add("touch:move",  `n=${e.touches.length}`), {passive:true});
-window.addEventListener("touchend",   e => add("touch:end",   `n=${e.touches.length}`), {passive:true});
+window.addEventListener("blur", () => add("window:blur", ""), true);
+document.addEventListener("visibilitychange", () => add("doc:visibility", document.visibilityState));
 </script>
 </body>
 </html>
