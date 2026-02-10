@@ -28,7 +28,8 @@ let last = performance.now();
 let i = 0;
 const log = document.getElementById("log");
 
-function add(type, info) {
+function add(e, type, info) {
+  e.preventDefault();
   const now = performance.now();
   const dt = (now - last).toFixed(1);
   last = now;
@@ -37,13 +38,13 @@ function add(type, info) {
   log.scrollTop = log.scrollHeight;
 }
 
-window.addEventListener("touchstart",  e => add("touch:start",  `n=${e.touches.length}`), {passive:true});
-window.addEventListener("touchmove",   e => add("touch:move",   `n=${e.touches.length}`), {passive:true});
-window.addEventListener("touchend",    e => add("touch:end",    `n=${e.touches.length}`), {passive:true});
-window.addEventListener("touchcancel", e => add("touch:cancel", `n=${e.touches.length}`), {passive:true});
+window.addEventListener("touchstart",  e => add(e, "touch:start",  `n=${e.touches.length}`), {passive:true});
+window.addEventListener("touchmove",   e => add(e, "touch:move",   `n=${e.touches.length}`), {passive:true});
+window.addEventListener("touchend",    e => add(e, "touch:end",    `n=${e.touches.length}`), {passive:true});
+window.addEventListener("touchcancel", e => add(e, "touch:cancel", `n=${e.touches.length}`), {passive:true});
 
-window.addEventListener("keydown", e => add("key:down", `key=${e.key} code=${e.code}`));
-window.addEventListener("keyup",   e => add("key:up",   `key=${e.key} code=${e.code}`));
+window.addEventListener("keydown", e => add(e, "key:down", `key=${e.key} code=${e.code}`), {passive:true});
+window.addEventListener("keyup",   e => add(e, "key:up",   `key=${e.key} code=${e.code}`), {passive:true});
 
 // window.addEventListener("blur", () => add("window:blur", ""), true);
 document.addEventListener("visibilitychange", () => add("doc:visibility", document.visibilityState));
