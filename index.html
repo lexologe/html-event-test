@@ -45,7 +45,7 @@ window.addEventListener("touchcancel", e => add("touch:cancel", `n=${e.touches.l
 window.addEventListener("keydown", e => add("key:down", `key=${e.key} code=${e.code}`));
 window.addEventListener("keyup",   e => add("key:up",   `key=${e.key} code=${e.code}`));
 
-window.addEventListener("blur", () => add("window:blur", ""), true);
+// window.addEventListener("blur", () => add("window:blur", ""), true);
 document.addEventListener("visibilitychange", () => add("doc:visibility", document.visibilityState));
 </script>
 </body>
