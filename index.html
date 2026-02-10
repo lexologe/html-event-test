@@ -43,8 +43,18 @@ window.addEventListener("touchmove",   e => add(e, "touch:move",   `n=${e.touche
 window.addEventListener("touchend",    e => add(e, "touch:end",    `n=${e.touches.length}`), {passive:true});
 window.addEventListener("touchcancel", e => add(e, "touch:cancel", `n=${e.touches.length}`), {passive:true});
 
-window.addEventListener("keydown", e => add(e, "key:down", `key=${e.key} code=${e.code}`), {passive:true});
-window.addEventListener("keyup",   e => add(e, "key:up",   `key=${e.key} code=${e.code}`), {passive:true});
+window.addEventListener("keydown", e => {
+  if (e.code === "F19") {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+  }
+}, true);
+window.addEventListener("keyup", e => {
+  if (e.code === "F19") {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+  }
+}, true);
 
 // window.addEventListener("blur", () => add("window:blur", ""), true);
 document.addEventListener("visibilitychange", () => add("doc:visibility", document.visibilityState));
